@@ -1,3 +1,4 @@
+from textwrap import dedent
 from typing import Tuple
 import math
 
@@ -117,7 +118,19 @@ def compute_with_suggestion(target_hex: str, bg_hex: str, alpha_hex: str):
         "suggested_target_rgb": suggested_target_rgb
     }
 
-# Example usage
 if __name__ == "__main__":
     result = compute_with_suggestion("#ff00ff", "#ffbbc4", "66")
     print(result)
+
+    print("color blending it so good ough")
+    bg = input("hex color code of your background: ")
+    target = input("hex color code for your damn target opaque color: ")
+    alpha = input("fuckass transparency (the XX in #......XX): ")
+    print("ok, calculating this bitch...")
+    raw = compute_with_suggestion(target, bg, alpha)
+    print(dedent(f"""
+        found that damn thing!
+        the result i{"s exact!" if raw.get("exact") else "sn't exact! fuck!"}
+        the result is {raw.get("composite_hex")}
+        {"the suggested opaque color is " + raw.get("suggested_target_hex") if not raw.get("exact") else ""}
+        """))
